@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RIPT Mobile - Rabbit Integrated Processing Technology</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom Neumorphic Styling -->
+    <style>
+        :root {
+            --bg-color: #eef2f5;
+            --neu-light: #ffffff;
+            --neu-dark: #d1d9e6;
+            --accent-red: #ff4d6d;
+            --accent-yellow: #ffb703;
+            --accent-blue: #0096c7;
+            --accent-teal: #00bfa5;
+            --accent-purple: #a855f7;
+            --text-primary: #2b3674;
+            --text-secondary: #707ebe;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c;
+            color: #2d3748;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Mobile Wrapper Styling */
+        .mobile-container {
+            width: 100%;
+            max-width: 430px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow-x: hidden;
+            padding-bottom: 110px;
+        }
+
+        /* Neumorphic Shadows */
+        .neu-flat {
+            background: var(--bg-color);
+            box-shadow: 8px 8px 16px var(--neu-dark), -8px -8px 16px var(--neu-light);
+            border-radius: 20px;
+        }
+
+        .neu-flat-sm {
+            background: var(--bg-color);
+            box-shadow: 4px 4px 10px var(--neu-dark), -4px -4px 10px var(--neu-light);
+            border-radius: 14px;
+        }
+
+        .neu-pressed {
+            background: var(--bg-color);
+            box-shadow: inset 4px 4px 8px var(--neu-dark), inset -4px -4px 8px var(--neu-light);
+            border-radius: 16px;
+        }
+
+        .neu-convex {
+            background: linear-gradient(145deg, #ffffff, #d6dadf);
+            box-shadow: 6px 6px 14px var(--neu-dark), -6px -6px 14px var(--neu-light);
+        }
+
+        /* Colored Card Gradients matching reference image */
+        .card-red {
+            background: linear-gradient(135deg, #ff5252, #e04848);
+            box-shadow: 0 10px 20px rgba(255, 82, 82, 0.35);
+        }
+
+        .card-yellow {
+            background: linear-gradient(135deg, #ffb300, #fb8c00);
+            box-shadow: 0 10px 20px rgba(255, 179, 0, 0.35);
+        }
+
+        .card-blue {
+            background: linear-gradient(135deg, #0288d1, #0277bd);
+            box-shadow: 0 10px 20px rgba(2, 136, 209, 0.35);
+        }
+
+        .card-teal {
+            background: linear-gradient(135deg, #00bfa5, #00897b);
+            box-shadow: 0 10px 20px rgba(0, 191, 165, 0.35);
+        }
+
+        .card-purple {
+            background: linear-gradient(135deg, #ab47bc, #8e24aa);
+            box-shadow: 0 10px 20px rgba(171, 71, 188, 0.35);
+        }
+
+        /* Glassmorphism Badge Inset */
+        .glass-icon-bg {
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
+        /* Glowing Effects */
+        .glow-red {
+            box-shadow: 0 0 18px rgba(255, 82, 82, 0.8), 0 6px 12px rgba(0, 0, 0, 0.2);
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 12px rgba(255, 82, 82, 0.6); }
+            50% { box-shadow: 0 0 24px rgba(255, 82, 82, 0.95); }
+            100% { box-shadow: 0 0 12px rgba(255, 82, 82, 0.6); }
+        }
+
+        /* Custom Scrollbar for Horizontal Cards */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Scanner Laser Line Animation */
+        @keyframes scan-laser {
+            0% { top: 10%; }
+            50% { top: 85%; }
+            100% { top: 10%; }
+        }
+        .animate-laser {
+            animation: scan-laser 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+
+        <!-- HEADER SECTION (Matching Image 8 Top Header Curve) -->
+        <header class="pt-6 px-5 pb-4">
+            <!-- Header Top Background Banner with Soft Curve -->
+            <div class="bg-teal-800/10 rounded-b-3xl -mx-5 -mt-6 pt-8 px-5 pb-6 mb-2">
+                <div class="flex items-center justify-between">
+                    <!-- Profile Avatar & Greeting -->
+                    <div class="flex items-center space-x-3">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" 
+                                 alt="Operator Avatar" 
+                                 class="w-14 h-14 rounded-2xl object-cover border-2 border-white shadow-md">
+                            <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full"></span>
+                        </div>
+                        <div>
+                            <span class="text-xs font-medium text-slate-500 block">Selamat datang,</span>
+                            <h1 class="text-xl font-extrabold text-slate-800 tracking-tight leading-none">RIPT.Operator<span class="text-teal-600">.</span></h1>
+                        </div>
+                    </div>
+
+                    <!-- Notification Bell with Red Badge "3" -->
+                    <button onclick="toggleModal('modal-notification')" class="relative neu-flat w-11 h-11 flex items-center justify-center text-slate-600 active:scale-95 transition-all">
+                        <i class="fa-solid fa-bell text-lg"></i>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">3</span>
+                    </button>
+                </div>
+
+                <!-- Efisiensi Batch Indicator Card -->
+                <div class="neu-flat p-3 mt-4 rounded-2xl bg-white/70">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="text-xs font-bold text-slate-600 tracking-wide">Efisiensi Batch: <span class="text-teal-600">93%</span></span>
+                        <span class="text-[10px] font-semibold text-slate-400">Target 95%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden p-0.5 neu-pressed">
+                        <div class="bg-gradient-to-r from-teal-400 to-emerald-500 h-full rounded-full transition-all duration-1000" style="width: 93%;"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN DYNAMIC CONTENT SCREEN CONTAINER -->
+        <main id="app-viewport">
+
+            <!-- 1. BERANDA / DASHBOARD SCREEN -->
+            <section id="screen-beranda" class="px-5 space-y-4">
+
+                <!-- MAIN SERVICES GRID (5 CARDS EXACTLY LIKE REFERENCE IMAGE) -->
+                <div class="grid grid-cols-2 gap-3.5 pt-1">
+
+                    <!-- CARD 1: Pengumpulan Batch (Coral Red) -->
+                    <div onclick="navigateTo('screen-farm')" class="card-red rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-truck-fast text-lg"></i>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-paw text-xs opacity-80"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-base leading-tight mb-1">Pengumpulan Batch<span class="text-red-200">.</span></h3>
+                        <p class="text-[11px] font-medium text-white/80 leading-snug">Masuk/Lacak Harvest Batch (HB)</p>
+                    </div>
+
+                    <!-- CARD 2: Pemrosesan (Amber Gold) -->
+                    <div onclick="navigateTo('screen-pemrosesan')" class="card-yellow rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-utensils text-lg"></i>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-[cutlery] text-xs opacity-80"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-base leading-tight mb-1">Pemrosesan<span class="text-amber-100">.</span></h3>
+                        <p class="text-[11px] font-medium text-white/80 leading-snug">Detail Proses Batch (PB)</p>
+                    </div>
+
+                    <!-- CARD 3: Produk Akhir (Sky Blue) -->
+                    <div onclick="navigateTo('screen-produk')" class="card-blue rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-box-open text-lg"></i>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-drumstick-bite text-xs opacity-80"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-base leading-tight mb-1">Produk Akhir<span class="text-sky-200">.</span></h3>
+                        <p class="text-[11px] font-medium text-white/80 leading-snug">Stok Produk Lot (PL)</p>
+                    </div>
+
+                    <!-- CARD 4: Traceability (Emerald Teal) -->
+                    <div onclick="navigateTo('screen-traceability')" class="card-teal rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-link text-lg"></i>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-tree text-xs opacity-80"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-base leading-tight mb-1">Traceability<span class="text-teal-100">.</span></h3>
+                        <p class="text-[11px] font-medium text-white/80 leading-snug">Pelacakan End-to-End</p>
+                    </div>
+
+                </div>
+
+                <!-- CARD 5: RabbitCycle (Royal Purple Banner - Full Width) -->
+                <div onclick="navigateTo('screen-rabbitcycle')" class="card-purple rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-2xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-recycle text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-lg leading-tight">RabbitCycle<span class="text-purple-200">.</span></h3>
+                                <p class="text-xs font-medium text-white/80">Pemanfaatan By-product (BP)</p>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                            <i class="fa-solid fa-arrows-spin text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEKSI AKTIVITAS TERBARU (Horizontal Carousel) -->
+                <div class="pt-2">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-base font-extrabold text-slate-800">Aktivitas Terbaru</h2>
+                        <a href="#" onclick="navigateTo('screen-laporan')" class="text-xs font-semibold text-teal-600">Lihat Semua</a>
+                    </div>
+
+                    <div class="flex space-x-3 overflow-x-auto no-scrollbar pb-2 -mx-5 px-5">
+                        
+                        <!-- Card 1 -->
+                        <div class="neu-flat p-3.5 min-w-[145px] max-w-[145px] rounded-2xl bg-white/60 flex-shrink-0">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-extrabold text-sm text-slate-800">HB-002</span>
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            </div>
+                            <p class="text-xs font-bold text-slate-600">Diterima</p>
+                            <p class="text-[10px] text-slate-400 font-medium">(1 jam)</p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="neu-flat p-3.5 min-w-[145px] max-w-[145px] rounded-2xl bg-white/60 flex-shrink-0">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-extrabold text-sm text-slate-800">PL-CAR-001</span>
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                            </div>
+                            <p class="text-xs font-bold text-slate-600">Selesai</p>
+                            <p class="text-[10px] text-slate-400 font-medium">(2 jam)</p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="neu-flat p-3.5 min-w-[145px] max-w-[145px] rounded-2xl bg-white/60 flex-shrink-0">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-extrabold text-sm text-slate-800">BP-SKIN-001</span>
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                            </div>
+                            <p class="text-xs font-bold text-slate-600">Diproses</p>
+                            <p class="text-[10px] text-slate-400 font-medium">(3 jam)</p>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="neu-flat p-3.5 min-w-[145px] max-w-[145px] rounded-2xl bg-white/60 flex-shrink-0">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-extrabold text-sm text-slate-800">HB-003</span>
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                            </div>
+                            <p class="text-xs font-bold text-slate-600">Jadwal Kirim</p>
+                            <p class="text-[10px] text-slate-400 font-medium">(5 jam)</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- QUICK ACTIONS BANNER -->
+                <div class="neu-flat p-4 rounded-3xl flex items-center justify-between bg-gradient-to-r from-teal-500/10 to-emerald-500/10 border border-teal-500/20">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-2xl bg-teal-500 text-white flex items-center justify-center shadow-md">
+                            <i class="fa-solid fa-qrcode text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-extrabold text-slate-800">Pindai QR Lot Production</h4>
+                            <p class="text-[10px] text-slate-500 font-medium">Verifikasi cepat di area pabrik</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleModal('modal-qr-scanner')" class="px-3 py-1.5 bg-teal-600 text-white text-xs font-bold rounded-xl shadow-md active:scale-95 transition-all">
+                        Scan Now
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- 2. FARM & PENGUMPULAN BATCH SCREEN -->
+            <section id="screen-farm" class="px-5 space-y-4 hidden">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-extrabold text-slate-800">Pengumpulan Batch (HB)</h2>
+                        <p class="text-xs text-slate-500">Manajemen Mitra Peternak & Penerimaan</p>
+                    </div>
+                    <button onclick="toggleModal('modal-add-hb')" class="w-9 h-9 neu-flat flex items-center justify-center text-teal-600 active:scale-95">
+                        <i class="fa-solid fa-plus text-sm"></i>
+                    </button>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex space-x-2 no-scrollbar overflow-x-auto">
+                    <button class="px-3.5 py-1.5 bg-teal-600 text-white text-xs font-bold rounded-xl shadow-sm">Semua (12)</button>
+                    <button class="px-3.5 py-1.5 neu-flat text-slate-600 text-xs font-medium rounded-xl">Transit (3)</button>
+                    <button class="px-3.5 py-1.5 neu-flat text-slate-600 text-xs font-medium rounded-xl">Diterima (5)</button>
+                    <button class="px-3.5 py-1.5 neu-flat text-slate-600 text-xs font-medium rounded-xl">Selesai (4)</button>
+                </div>
+
+                <!-- List Harvest Batches -->
+                <div class="space-y-3">
+                    <!-- Batch Card 1 -->
+                    <div class="neu-flat p-4 rounded-2xl bg-white/70 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs font-black text-slate-800">HB-2026-001</span>
+                                    <span class="text-[9px] font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Diterima</span>
+                                </div>
+                                <p class="text-xs font-semibold text-teal-700 mt-0.5">Heritage Rabbit Farm (Bogor)</p>
+                            </div>
+                            <span class="text-[10px] text-slate-400 font-medium">Hari ini, 08:30</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200/60 text-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Jumlah</span>
+                                <span class="text-xs font-bold text-slate-700">120 Ekor</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Bobot Hidup</span>
+                                <span class="text-xs font-bold text-slate-700">288.5 kg</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Rata-rata</span>
+                                <span class="text-xs font-bold text-teal-600">2.4 kg/ekor</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-end space-x-2 pt-1">
+                            <button onclick="openGenealogy('HB-2026-001')" class="px-2.5 py-1 neu-flat text-[10px] font-bold text-slate-600">Cek Traceability</button>
+                            <button onclick="navigateTo('screen-pemrosesan')" class="px-2.5 py-1 bg-amber-500 text-white text-[10px] font-bold rounded-lg shadow-sm">Proses ke PB</button>
+                        </div>
+                    </div>
+
+                    <!-- Batch Card 2 -->
+                    <div class="neu-flat p-4 rounded-2xl bg-white/70 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs font-black text-slate-800">HB-2026-002</span>
+                                    <span class="text-[9px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Transit</span>
+                                </div>
+                                <p class="text-xs font-semibold text-teal-700 mt-0.5">Mitra Kelinci Sukabumi</p>
+                            </div>
+                            <span class="text-[10px] text-slate-400 font-medium">Est. 14:00</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200/60 text-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Jumlah</span>
+                                <span class="text-xs font-bold text-slate-700">85 Ekor</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Bobot Estimasi</span>
+                                <span class="text-xs font-bold text-slate-700">195.0 kg</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Driver</span>
+                                <span class="text-xs font-bold text-teal-600">Pak Ageng</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. PEMROSESAN LAB & YIELD CALCULATOR -->
+            <section id="screen-pemrosesan" class="px-5 space-y-4 hidden">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-800">Detail Pemrosesan (PB)</h2>
+                    <p class="text-xs text-slate-500">Live Yield Calculator & Batch Processing</p>
+                </div>
+
+                <!-- Active Processing Batch Header -->
+                <div class="neu-flat p-4 rounded-3xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-black text-amber-800">BANYAK PROSES: PB-2026-001</span>
+                        <span class="text-[10px] font-bold bg-amber-500 text-white px-2 py-0.5 rounded-full">In Progress</span>
+                    </div>
+                    <p class="text-xs text-slate-600 font-medium">Asal Batch: <strong class="text-slate-800">HB-2026-001 (Heritage Farm)</strong></p>
+                </div>
+
+                <!-- Interactive Yield Calculator Widget -->
+                <div class="neu-flat p-4 rounded-3xl bg-white/80 space-y-3">
+                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-wider">Kalkulator Rendemen (Yield)</h3>
+                    
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                            <span>Bobot Hidup Total (Live Weight):</span>
+                            <span id="live-weight-val" class="text-amber-600 font-extrabold">250 kg</span>
+                        </div>
+                        <input type="range" id="live-weight-slider" min="100" max="500" value="250" class="w-full accent-amber-500 cursor-pointer" oninput="updateYieldCalculator(this.value)">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 pt-2">
+                        <div class="neu-pressed p-2.5 rounded-xl text-center">
+                            <span class="text-[10px] font-semibold text-slate-400 block">Karkas / Carcass (~52%)</span>
+                            <span id="yield-carcass" class="text-sm font-extrabold text-blue-600">130.0 kg</span>
+                        </div>
+                        <div class="neu-pressed p-2.5 rounded-xl text-center">
+                            <span class="text-[10px] font-semibold text-slate-400 block">Boneless / Fillet (~18%)</span>
+                            <span id="yield-fillet" class="text-sm font-extrabold text-teal-600">45.0 kg</span>
+                        </div>
+                        <div class="neu-pressed p-2.5 rounded-xl text-center">
+                            <span class="text-[10px] font-semibold text-slate-400 block">Kulit / Pelt (~12%)</span>
+                            <span id="yield-skin" class="text-sm font-extrabold text-purple-600">30.0 kg</span>
+                        </div>
+                        <div class="neu-pressed p-2.5 rounded-xl text-center">
+                            <span class="text-[10px] font-semibold text-slate-400 block">Organ & Tulang (~18%)</span>
+                            <span id="yield-organ" class="text-sm font-extrabold text-amber-600">45.0 kg</span>
+                        </div>
+                    </div>
+
+                    <button onclick="toggleModal('modal-confirm-yield')" class="w-full py-2.5 bg-amber-500 text-white font-bold text-xs rounded-xl shadow-md active:scale-95 transition-all">
+                        Simpan & Generate Lot ID Produk
+                    </button>
+                </div>
+            </section>
+
+            <!-- 4. PRODUK AKHIR & BY-PRODUCTS -->
+            <section id="screen-produk" class="px-5 space-y-4 hidden">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-800">Stok Produk Lot (PL)</h2>
+                    <p class="text-xs text-slate-500">Invetaris Produk Utama & Cold Storage</p>
+                </div>
+
+                <div class="neu-pressed p-1 rounded-2xl flex space-x-1">
+                    <button id="tab-btn-carcass" onclick="switchProductTab('carcass')" class="flex-1 py-2 text-xs font-bold rounded-xl bg-white text-teal-700 shadow-sm transition-all">Produk Utama (Meat)</button>
+                    <button id="tab-btn-byproduct" onclick="switchProductTab('byproduct')" class="flex-1 py-2 text-xs font-bold rounded-xl text-slate-500 transition-all">By-products (BP)</button>
+                </div>
+
+                <!-- Product List Container -->
+                <div id="product-list-container" class="space-y-3">
+                    <!-- Dynamic JS Loaded Here -->
+                </div>
+            </section>
+
+            <!-- 5. RABBITCYCLE VALORIZATION -->
+            <section id="screen-rabbitcycle" class="px-5 space-y-4 hidden">
+                <div class="neu-flat p-4 rounded-3xl bg-purple-900 text-white relative overflow-hidden">
+                    <div class="relative z-10">
+                        <span class="text-[10px] font-bold bg-purple-500 text-white px-2 py-0.5 rounded-full uppercase">Ekosistem Circular</span>
+                        <h2 class="text-xl font-extrabold mt-1">RabbitCycle Zero-Waste</h2>
+                        <p class="text-xs text-purple-200 mt-1">Pemanfaatan 100% limbah dan by-product kelinci menjadi nilai ekonomi tinggi.</p>
+                    </div>
+                </div>
+
+                <!-- Flow Items -->
+                <div class="space-y-3">
+                    <div class="neu-flat p-3.5 rounded-2xl flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold">
+                                🐇
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-slate-800">Kulit / Pelt (BP-SKIN)</h4>
+                                <p class="text-[10px] text-slate-500">Processing -> Kerajinan Kulit & Chew Toy</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-purple-600">30.0 kg</span>
+                    </div>
+
+                    <div class="neu-flat p-3.5 rounded-2xl flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+                                🌱
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-slate-800">Organ & Jeroan (BP-ORG)</h4>
+                                <p class="text-[10px] text-slate-500">Fermentasi -> Bio-Fertilizer Organik</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-emerald-600">18.5 kg</span>
+                    </div>
+
+                    <div class="neu-flat p-3.5 rounded-2xl flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold">
+                                🦴
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-slate-800">Tulang & Kepala (BP-BONE)</h4>
+                                <p class="text-[10px] text-slate-500">Penggilingan -> Bone Meal Pet Food</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-amber-600">26.5 kg</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. TRACEABILITY & GENEALOGY TREE -->
+            <section id="screen-traceability" class="px-5 space-y-4 hidden">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-800">Pelacakan End-to-End</h2>
+                    <p class="text-xs text-slate-500">Silsilah Digital Produk & By-product</p>
+                </div>
+
+                <!-- Trace Search Input -->
+                <div class="relative">
+                    <input type="text" id="trace-search-input" placeholder="Masukkan ID Batch / Lot (ex: PB-2026-001)" 
+                           class="w-full pl-10 pr-24 py-3 neu-pressed text-xs font-semibold text-slate-700 focus:outline-none rounded-2xl">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                    <button onclick="runTraceSearch()" class="absolute right-1.5 top-1.5 px-3 py-1.5 bg-teal-600 text-white text-xs font-bold rounded-xl shadow-md">Lacak</button>
+                </div>
+
+                <!-- Interactive Visual Genealogy Tree -->
+                <div class="neu-flat p-4 rounded-3xl space-y-4 bg-white/80">
+                    <div class="flex items-center justify-between border-b pb-2">
+                        <span class="text-xs font-black text-slate-800">Pohon Genealogi Digital</span>
+                        <span class="text-[10px] font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-md">STATUS: VERIFIED</span>
+                    </div>
+
+                    <!-- Tree Flow Visualization -->
+                    <div class="relative space-y-3 pl-3 border-l-2 border-teal-500/40 ml-2">
+                        <!-- Node 1: Farm Origin -->
+                        <div class="relative pl-4">
+                            <span class="w-3 h-3 bg-red-500 rounded-full absolute -left-[23px] top-1 ring-4 ring-white"></span>
+                            <div class="neu-flat-sm p-2.5 bg-red-50 border border-red-200">
+                                <span class="text-[9px] font-bold text-red-500 block">ASAL MITRA FARM</span>
+                                <h5 class="text-xs font-extrabold text-slate-800">Heritage Rabbit Farm Bogor</h5>
+                                <p class="text-[10px] text-slate-500">Harvest Batch: <strong class="text-slate-700">HB-2026-001</strong> (120 Ekor)</p>
+                            </div>
+                        </div>
+
+                        <!-- Node 2: Processing Center -->
+                        <div class="relative pl-4">
+                            <span class="w-3 h-3 bg-amber-500 rounded-full absolute -left-[23px] top-1 ring-4 ring-white"></span>
+                            <div class="neu-flat-sm p-2.5 bg-amber-50 border border-amber-200">
+                                <span class="text-[9px] font-bold text-amber-600 block">PLANT PEMROSESAN</span>
+                                <h5 class="text-xs font-extrabold text-slate-800">Processing Lab RIPT Unit #1</h5>
+                                <p class="text-[10px] text-slate-500">Processing Batch: <strong class="text-slate-700">PB-2026-001</strong></p>
+                            </div>
+                        </div>
+
+                        <!-- Node 3: Split Lots -->
+                        <div class="relative pl-4">
+                            <span class="w-3 h-3 bg-teal-500 rounded-full absolute -left-[23px] top-1 ring-4 ring-white"></span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="neu-flat-sm p-2 bg-blue-50 border border-blue-200">
+                                    <span class="text-[9px] font-bold text-blue-600 block">PRODUK UTAMA</span>
+                                    <p class="text-[10px] font-bold text-slate-800">PL-CAR-001 (Karkas)</p>
+                                    <p class="text-[9px] text-slate-500">Grade KA1 | Cold Storage A</p>
+                                </div>
+                                <div class="neu-flat-sm p-2 bg-purple-50 border border-purple-200">
+                                    <span class="text-[9px] font-bold text-purple-600 block">VALORIZATION</span>
+                                    <p class="text-[10px] font-bold text-slate-800">BP-SKIN-001 (Kulit)</p>
+                                    <p class="text-[9px] text-slate-500">Tanning Craft Grade</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. LAPORAN SCREEN -->
+            <section id="screen-laporan" class="px-5 space-y-4 hidden">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-800">Laporan & Analitik</h2>
+                    <p class="text-xs text-slate-500">Metrik Produksi & Throughput</p>
+                </div>
+                <div class="neu-flat p-4 rounded-3xl bg-white/80 space-y-3">
+                    <h4 class="text-xs font-bold text-slate-700">Total Produksi Bulan Ini</h4>
+                    <div class="text-2xl font-black text-teal-700">1,480.5 kg</div>
+                    <p class="text-[10px] text-emerald-600 font-bold">↑ 12.4% dibandingkan bulan lalu</p>
+                </div>
+            </section>
+
+            <!-- 8. PROFIL SCREEN -->
+            <section id="screen-profil" class="px-5 space-y-4 hidden">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-800">Profil Operator</h2>
+                    <p class="text-xs text-slate-500">Pengaturan Akun & Plant RIPT</p>
+                </div>
+                <div class="neu-flat p-4 rounded-3xl text-center space-y-2 bg-white/80">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" class="w-20 h-20 rounded-2xl mx-auto border-2 border-teal-500 shadow-md object-cover">
+                    <h3 class="font-extrabold text-base text-slate-800">RIPT.Operator</h3>
+                    <p class="text-xs text-slate-500">Senior Plant Manager - Plant Bogor</p>
+                    <span class="inline-block px-3 py-1 bg-teal-100 text-teal-800 text-[10px] font-bold rounded-full">ID OPERATOR: RIPT-OP-088</span>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FLOATING ACTION BUTTONS (BOTTOM RIGHT - HELP & VOICE MIC) -->
+        <div class="fixed bottom-24 right-5 flex flex-col space-y-2.5 z-40">
+            <!-- Help Button -->
+            <button onclick="toggleModal('modal-help')" class="w-10 h-10 rounded-full bg-teal-500 text-white neu-flat flex items-center justify-center shadow-lg active:scale-95 transition-all">
+                <i class="fa-solid fa-circle-question text-lg"></i>
+            </button>
+            <!-- Voice Assistant Button -->
+            <button onclick="toggleModal('modal-voice')" class="w-12 h-12 rounded-full bg-teal-600 text-white neu-flat flex items-center justify-center shadow-xl active:scale-95 transition-all">
+                <i class="fa-solid fa-microphone text-xl"></i>
+            </button>
+        </div>
+
+        <!-- FLOATING BOTTOM NAVIGATION BAR (EXACT DESIGN MATCHING IMAGE 8) -->
+        <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[395px] z-50">
+            <div class="neu-flat bg-white/90 backdrop-blur-md rounded-3xl py-2 px-3 flex items-center justify-between border border-white/60 shadow-2xl">
+                
+                <!-- Nav Item 1: Beranda -->
+                <button onclick="navigateTo('screen-beranda')" id="nav-beranda" class="flex flex-col items-center w-12 text-teal-600 transition-all">
+                    <i class="fa-solid fa-house text-lg"></i>
+                    <span class="text-[10px] font-bold mt-0.5">Beranda</span>
+                </button>
+
+                <!-- Nav Item 2: Kelola Farm -->
+                <button onclick="navigateTo('screen-farm')" id="nav-farm" class="flex flex-col items-center w-12 text-slate-400 hover:text-teal-600 transition-all">
+                    <i class="fa-solid fa-tractor text-lg"></i>
+                    <span class="text-[10px] font-medium mt-0.5">Kelola Farm</span>
+                </button>
+
+                <!-- Nav Item 3: Center Elevated Traceability Button (GLOWING RED) -->
+                <button onclick="navigateTo('screen-traceability')" id="nav-traceability" class="relative -top-5 flex flex-col items-center">
+                    <div class="w-13 h-13 w-12 h-12 rounded-full card-red flex items-center justify-center text-white glow-red active:scale-90 transition-all">
+                        <i class="fa-solid fa-link text-xl"></i>
+                    </div>
+                    <span class="text-[10px] font-extrabold text-red-500 mt-0.5">Traceability</span>
+                </button>
+
+                <!-- Nav Item 4: Laporan -->
+                <button onclick="navigateTo('screen-laporan')" id="nav-laporan" class="flex flex-col items-center w-12 text-slate-400 hover:text-teal-600 transition-all">
+                    <i class="fa-solid fa-chart-pie text-lg"></i>
+                    <span class="text-[10px] font-medium mt-0.5">Laporan</span>
+                </button>
+
+                <!-- Nav Item 5: Profil -->
+                <button onclick="navigateTo('screen-profil')" id="nav-profil" class="flex flex-col items-center w-12 text-slate-400 hover:text-teal-600 transition-all">
+                    <i class="fa-solid fa-user text-lg"></i>
+                    <span class="text-[10px] font-medium mt-0.5">Profil</span>
+                </button>
+
+            </div>
+        </nav>
+
+        <!-- MODAL: QR SCANNER SIMULATOR -->
+        <div id="modal-qr-scanner" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-5 hidden">
+            <div class="neu-flat bg-white rounded-3xl w-full max-w-sm p-5 text-center relative overflow-hidden">
+                <button onclick="toggleModal('modal-qr-scanner')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <h3 class="text-base font-extrabold text-slate-800 mb-1">Pemindai QR Code RIPT</h3>
+                <p class="text-xs text-slate-500 mb-4">Arahkan kamera ke QR Code Lot / Batch</p>
+                
+                <!-- Simulated Camera View -->
+                <div class="w-full h-48 bg-slate-900 rounded-2xl relative overflow-hidden flex items-center justify-center border-2 border-teal-500/50">
+                    <div class="w-36 h-36 border-2 border-dashed border-teal-400/80 rounded-xl"></div>
+                    <div class="absolute w-full h-1 bg-gradient-to-r from-transparent via-teal-400 to-transparent animate-laser"></div>
+                    <span class="absolute bottom-3 text-[10px] text-teal-300 font-mono">Mencari Kode QR...</span>
+                </div>
+
+                <div class="mt-4 flex space-x-2">
+                    <button onclick="simulateQRScan('PB-2026-001')" class="flex-1 py-2 bg-teal-600 text-white text-xs font-bold rounded-xl">Simulasi Scan PB-001</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL: VOICE ASSISTANT -->
+        <div id="modal-voice" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-5 hidden">
+            <div class="neu-flat bg-white rounded-3xl w-full max-w-sm p-6 text-center">
+                <div class="w-16 h-16 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mx-auto mb-3 animate-pulse">
+                    <i class="fa-solid fa-microphone text-2xl"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-slate-800">Asisten Suara RIPT</h3>
+                <p class="text-xs text-slate-500 mt-1 mb-4">"Mendengarkan perintah suara Anda..."</p>
+                <div class="neu-pressed p-3 rounded-xl text-xs text-slate-600 italic">
+                    Coba katakan: "Cek stok karkas" atau "Status Batch HB-001"
+                </div>
+                <button onclick="toggleModal('modal-voice')" class="mt-5 px-6 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded-xl">Tutup</button>
+            </div>
+        </div>
+
+        <!-- MODAL: HELP & GUIDE -->
+        <div id="modal-help" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-5 hidden">
+            <div class="neu-flat bg-white rounded-3xl w-full max-w-sm p-5 space-y-3">
+                <h3 class="text-base font-extrabold text-slate-800">Panduan Aplikasi RIPT</h3>
+                <p class="text-xs text-slate-600">Aplikasi RIPT (Rabbit Integrated Processing Technology) membantu pelacakan penuh dari peternakan hingga produk akhir.</p>
+                <button onclick="toggleModal('modal-help')" class="w-full py-2 bg-teal-600 text-white text-xs font-bold rounded-xl">Mengerti</button>
+            </div>
+        </div>
+
+        <!-- MODAL: NOTIFICATIONS -->
+        <div id="modal-notification" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-5 hidden">
+            <div class="neu-flat bg-white rounded-3xl w-full max-w-sm p-5 space-y-3">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-base font-extrabold text-slate-800">Notifikasi (3)</h3>
+                    <button onclick="toggleModal('modal-notification')" class="text-slate-400 text-sm"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="space-y-2 text-xs">
+                    <div class="p-2.5 neu-pressed rounded-xl">
+                        <span class="font-bold text-slate-800 block">Penerimaan HB-001 Selesai</span>
+                        <span class="text-[10px] text-slate-500">120 Ekor berhasil diverifikasi</span>
+                    </div>
+                    <div class="p-2.5 neu-pressed rounded-xl">
+                        <span class="font-bold text-slate-800 block">By-product Skin Siap</span>
+                        <span class="text-[10px] text-slate-500">30 kg kulit dipindahkan ke RabbitCycle</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const productData = {
+            carcass: [
+                { id: "PL-CAR-001", name: "Karkas Kelinci Utuh (KA1)", weight: "85.0 kg", stock: "42 Pack", loc: "Cold Storage A-1", grade: "Grade A" },
+                { id: "PL-FIL-001", name: "Fillet Boneless Loin", weight: "32.5 kg", stock: "65 Pack", loc: "Cold Storage B-2", grade: "Grade A+" }
+            ],
+            byproduct: [
+                { id: "BP-SKIN-001", name: "Kulit Kelinci Raw Pelt", weight: "30.0 kg", stock: "120 Pcs", loc: "Warehouse Leather C", grade: "Tanning Grade" },
+                { id: "BP-ORG-001", name: "Jeroan Organ Organik", weight: "18.5 kg", stock: "18 Bag", loc: "Bio-Storage D", grade: "Bio-Fertilizer" }
+            ]
+        };
+
+        // Navigation Controller
+        function navigateTo(screenId) {
+            const screens = ['screen-beranda', 'screen-farm', 'screen-pemrosesan', 'screen-produk', 'screen-rabbitcycle', 'screen-traceability', 'screen-laporan', 'screen-profil'];
+            screens.forEach(s => {
+                const el = document.getElementById(s);
+                if (el) el.classList.add('hidden');
+            });
+
+            const activeScreen = document.getElementById(screenId);
+            if (activeScreen) activeScreen.classList.remove('hidden');
+
+            // Update Nav Button Styles
+            const navIds = ['nav-beranda', 'nav-farm', 'nav-laporan', 'nav-profil'];
+            navIds.forEach(id => {
+                const navBtn = document.getElementById(id);
+                if (navBtn) {
+                    navBtn.classList.remove('text-teal-600');
+                    navBtn.classList.add('text-slate-400');
+                }
+            });
+
+            if (screenId === 'screen-beranda') setNavActive('nav-beranda');
+            else if (screenId === 'screen-farm') setNavActive('nav-farm');
+            else if (screenId === 'screen-laporan') setNavActive('nav-laporan');
+            else if (screenId === 'screen-profil') setNavActive('nav-profil');
+
+            if (screenId === 'screen-produk') {
+                renderProducts('carcass');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setNavActive(navId) {
+            const btn = document.getElementById(navId);
+            if (btn) {
+                btn.classList.remove('text-slate-400');
+                btn.classList.add('text-teal-600');
+            }
+        }
+
+        // Toggle Modal Display
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.toggle('hidden');
+            }
+        }
+
+        // Interactive Yield Calculator Logic
+        function updateYieldCalculator(liveWeight) {
+            document.getElementById('live-weight-val').innerText = liveWeight + " kg";
+            document.getElementById('yield-carcass').innerText = (liveWeight * 0.52).toFixed(1) + " kg";
+            document.getElementById('yield-fillet').innerText = (liveWeight * 0.18).toFixed(1) + " kg";
+            document.getElementById('yield-skin').innerText = (liveWeight * 0.12).toFixed(1) + " kg";
+            document.getElementById('yield-organ').innerText = (liveWeight * 0.18).toFixed(1) + " kg";
+        }
+
+        // Switch Product Tabs
+        function switchProductTab(tab) {
+            const btnCarcass = document.getElementById('tab-btn-carcass');
+            const btnBy = document.getElementById('tab-btn-byproduct');
+
+            if (tab === 'carcass') {
+                btnCarcass.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-teal-700 shadow-sm transition-all";
+                btnBy.className = "flex-1 py-2 text-xs font-bold rounded-xl text-slate-500 transition-all";
+            } else {
+                btnBy.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-purple-700 shadow-sm transition-all";
+                btnCarcass.className = "flex-1 py-2 text-xs font-bold rounded-xl text-slate-500 transition-all";
+            }
+            renderProducts(tab);
+        }
+
+        // Render Product Items
+        function renderProducts(tab) {
+            const container = document.getElementById('product-list-container');
+            const items = productData[tab] || [];
+            
+            container.innerHTML = items.map(item => `
+                <div class="neu-flat p-4 rounded-2xl bg-white/80 space-y-2">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-black text-slate-800">${item.id}</span>
+                            <h4 class="text-xs font-bold text-slate-700">${item.name}</h4>
+                        </div>
+                        <span class="text-[9px] font-bold ${tab === 'carcass' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'} px-2 py-0.5 rounded-full">${item.grade}</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200/60 text-center">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block">Total Weight</span>
+                            <span class="text-xs font-bold text-slate-700">${item.weight}</span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 block">Stok Ready</span>
+                            <span class="text-xs font-bold text-teal-600">${item.stock}</span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 block">Lokasi</span>
+                            <span class="text-xs font-bold text-slate-600">${item.loc}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Traceability Search
+        function runTraceSearch() {
+            const query = document.getElementById('trace-search-input').value.trim();
+            if (!query) {
+                alert("Silakan masukkan ID Batch atau Lot!");
+                return;
+            }
+            alert("Hasil Pelacakan Traceability Ditemukan untuk ID: " + query);
+        }
+
+        // Open Traceability Page directly with ID
+        function openGenealogy(batchId) {
+            navigateTo('screen-traceability');
+            document.getElementById('trace-search-input').value = batchId;
+        }
+
+        // Simulate QR Code Scan
+        function simulateQRScan(batchId) {
+            toggleModal('modal-qr-scanner');
+            openGenealogy(batchId);
+        }
+
+        // Initialize Default View
+        window.onload = function() {
+            navigateTo('screen-beranda');
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RIPT Partner - Portal Peternak Binaan</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom Neumorphic Styling (Senada dengan RIPT Operator) -->
+    <style>
+        :root {
+            --bg-color: #eef2f5;
+            --neu-light: #ffffff;
+            --neu-dark: #d1d9e6;
+            --accent-red: #ff4d6d;
+            --accent-yellow: #ffb703;
+            --accent-blue: #0096c7;
+            --accent-teal: #00bfa5;
+            --accent-purple: #a855f7;
+            --text-primary: #2b3674;
+            --text-secondary: #707ebe;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c;
+            color: #2d3748;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 430px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow-x: hidden;
+            padding-bottom: 110px;
+        }
+
+        .neu-flat {
+            background: var(--bg-color);
+            box-shadow: 8px 8px 16px var(--neu-dark), -8px -8px 16px var(--neu-light);
+            border-radius: 20px;
+        }
+
+        .neu-flat-sm {
+            background: var(--bg-color);
+            box-shadow: 4px 4px 10px var(--neu-dark), -4px -4px 10px var(--neu-light);
+            border-radius: 14px;
+        }
+
+        .neu-pressed {
+            background: var(--bg-color);
+            box-shadow: inset 4px 4px 8px var(--neu-dark), inset -4px -4px 8px var(--neu-light);
+            border-radius: 16px;
+        }
+
+        /* Card Gradients */
+        .card-red {
+            background: linear-gradient(135deg, #ff5252, #e04848);
+            box-shadow: 0 10px 20px rgba(255, 82, 82, 0.35);
+        }
+
+        .card-yellow {
+            background: linear-gradient(135deg, #ffb300, #fb8c00);
+            box-shadow: 0 10px 20px rgba(255, 179, 0, 0.35);
+        }
+
+        .card-blue {
+            background: linear-gradient(135deg, #0288d1, #0277bd);
+            box-shadow: 0 10px 20px rgba(2, 136, 209, 0.35);
+        }
+
+        .card-teal {
+            background: linear-gradient(135deg, #00bfa5, #00897b);
+            box-shadow: 0 10px 20px rgba(0, 191, 165, 0.35);
+        }
+
+        .card-purple {
+            background: linear-gradient(135deg, #ab47bc, #8e24aa);
+            box-shadow: 0 10px 20px rgba(171, 71, 188, 0.35);
+        }
+
+        .glass-icon-bg {
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
+        .glow-teal {
+            box-shadow: 0 0 18px rgba(0, 191, 165, 0.8), 0 6px 12px rgba(0, 0, 0, 0.2);
+            animation: pulse-glow-teal 2s infinite;
+        }
+
+        @keyframes pulse-glow-teal {
+            0% { box-shadow: 0 0 12px rgba(0, 191, 165, 0.6); }
+            50% { box-shadow: 0 0 24px rgba(0, 191, 165, 0.95); }
+            100% { box-shadow: 0 0 12px rgba(0, 191, 165, 0.6); }
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+
+        <!-- HEADER SECTION -->
+    <header class="pt-6 px-5 pb-4">
+            <div class="bg-emerald-800/10 rounded-b-3xl -mx-5 -mt-6 pt-8 px-5 pb-6 mb-2">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250" 
+                                 alt="Farmer Avatar" 
+                                 class="w-14 h-14 rounded-2xl object-cover border-2 border-white shadow-md">
+                            <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full"></span>
+                        </div>
+                        <div>
+                            <span class="text-xs font-medium text-slate-500 block">Mitra Peternak,</span>
+                            <h1 class="text-xl font-extrabold text-slate-800 tracking-tight leading-none">Pak Budi<span class="text-emerald-600">.</span></h1>
+                        </div>
+                    </div>
+
+                    <button onclick="toggleModal('modal-notification')" class="relative neu-flat w-11 h-11 flex items-center justify-center text-slate-600 active:scale-95 transition-all">
+                        <i class="fa-solid fa-bell text-lg"></i>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-teal-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">2</span>
+                    </button>
+                </div>
+
+                <!-- Status Performa Kandang Banner -->
+                <div class="neu-flat p-3 mt-4 rounded-2xl bg-white/70">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="text-xs font-bold text-slate-600 tracking-wide">Kesehatan Ternak: <span class="text-emerald-600">98% (Sehat)</span></span>
+                        <span class="text-[10px] font-semibold text-slate-400">Populasi: 150 Ekor</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden p-0.5 neu-pressed">
+                        <div class="bg-gradient-to-r from-teal-400 to-emerald-500 h-full rounded-full transition-all duration-1000" style="width: 98%;"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN VIEWPORT -->
+        <main id="app-viewport">
+
+            <!-- 1. BERANDA / DASHBOARD PETERNAK -->
+            <section id="screen-beranda" class="px-5 space-y-4">
+
+                <!-- MAIN CARDS GRID (5 CARDS) -->
+                <div class="grid grid-cols-2 gap-3.5 pt-1">
+
+                    <!-- CARD 1: Manajemen Kandang (Coral Red) -->
+                    <div onclick="navigateTo('screen-kandang')" class="card-red rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-house-chimney text-lg"></i>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-paw text-xs opacity-80"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-base leading-tight mb-1">Kandang Saya<span class="text-red-200">.</span></h3>
+                        <p class="text-[11px] font-medium text-white/80 leading-snug">Data Populasi & Bobot</p>
+                    </div>
+
+                    <!-- CARD 2: Jadwal Panen & Setor (Amber Gold) -->
+                    <div onclick="navigateTo('screen-panen')" class="card-yellow rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-truck-ramp-box text-lg"></i>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-calendar-check text-xs opacity-80"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-base leading-tight mb-1">Setor Harvest<span class="text-amber-100">.</span></h3>
+                        <p class="text-[11px] font-medium text-white/80 leading-snug">Jadwal & Pengiriman HB</p>
+                    </div>
+
+                    <!-- CARD 3: FITUR EDUKASI (Emerald Teal - Highlighted) -->
+                    <div onclick="navigateTo('screen-edukasi')" class="card-teal rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-graduation-cap text-lg"></i>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-book-open text-xs opacity-80"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-base leading-tight mb-1">Pusat Edukasi<span class="text-teal-100">.</span></h3>
+                        <p class="text-[11px] font-medium text-white/80 leading-snug">Modul & Best Practice</p>
+                    </div>
+
+                    <!-- CARD 4: Konsultasi Ahli (Sky Blue) -->
+                    <div onclick="toggleModal('modal-konsultasi')" class="card-blue rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-headset text-lg"></i>
+                            </div>
+                            <div class="w-8 h-8 rounded-lg glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-user-doctor text-xs opacity-80"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-base leading-tight mb-1">Tanya Ahli RIPT<span class="text-sky-200">.</span></h3>
+                        <p class="text-[11px] font-medium text-white/80 leading-snug">Konsultasi Dokter Hewan</p>
+                    </div>
+
+                </div>
+
+                <!-- CARD 5: Kalkulator Pakan & Estimasi Pendapatan (Royal Purple Banner) -->
+                <div onclick="navigateTo('screen-kalkulator')" class="card-purple rounded-3xl p-4 text-white relative overflow-hidden cursor-pointer active:scale-95 transition-all">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-2xl glass-icon-bg flex items-center justify-center">
+                                <i class="fa-solid fa-calculator text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-lg leading-tight">Kalkulator Smart Farm<span class="text-purple-200">.</span></h3>
+                                <p class="text-xs font-medium text-white/80">Estimasi Kebutuhan Pakan & HPP Panen</p>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl glass-icon-bg flex items-center justify-center">
+                            <i class="fa-solid fa-arrow-right text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODUL EDUKASI UTAMA (Quick Preview Carousel) -->
+                <div class="pt-2">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-base font-extrabold text-slate-800">Materi Edukasi Terbaru</h2>
+                        <a href="#" onclick="navigateTo('screen-edukasi')" class="text-xs font-semibold text-teal-600">Lihat Semua</a>
+                    </div>
+
+                    <div class="flex space-x-3 overflow-x-auto no-scrollbar pb-2 -mx-5 px-5">
+                        
+                        <!-- Article Card 1 -->
+                        <div onclick="openArticle('Teknik Budidaya Pakan Trichanthera')" class="neu-flat p-3.5 min-w-[180px] max-w-[180px] rounded-2xl bg-white/70 flex-shrink-0 cursor-pointer active:scale-95">
+                            <span class="text-[9px] font-bold bg-teal-100 text-teal-700 px-2 py-0.5 rounded-full">Pakan & Nutrisi</span>
+                            <h4 class="font-extrabold text-xs text-slate-800 mt-2 line-clamp-2">Budidaya Daun Trichanthera untuk Kelinci</h4>
+                            <p class="text-[10px] text-slate-400 mt-2"><i class="fa-solid fa-clock"></i> 5 min read</p>
+                        </div>
+
+                        <!-- Article Card 2 -->
+                        <div onclick="openArticle('Manajemen Biosekuriti Kandang')" class="neu-flat p-3.5 min-w-[180px] max-w-[180px] rounded-2xl bg-white/70 flex-shrink-0 cursor-pointer active:scale-95">
+                            <span class="text-[9px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Kesehatan</span>
+                            <h4 class="font-extrabold text-xs text-slate-800 mt-2 line-clamp-2">Pencegahan Penyakit di Kandang Tertutup</h4>
+                            <p class="text-[10px] text-slate-400 mt-2"><i class="fa-solid fa-clock"></i> 4 min read</p>
+                        </div>
+
+                        <!-- Article Card 3 -->
+                        <div onclick="openArticle('Standar Bobot Panen Ideal')" class="neu-flat p-3.5 min-w-[180px] max-w-[180px] rounded-2xl bg-white/70 flex-shrink-0 cursor-pointer active:scale-95">
+                            <span class="text-[9px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Standar RIPT</span>
+                            <h4 class="font-extrabold text-xs text-slate-800 mt-2 line-clamp-2">Kriteria Bobot & Umur Panen Optimal</h4>
+                            <p class="text-[10px] text-slate-400 mt-2"><i class="fa-solid fa-clock"></i> 3 min read</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- 2. KANDANG SAYA SCREEN -->
+            <section id="screen-kandang" class="px-5 space-y-4 hidden">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-extrabold text-slate-800">Manajemen Kandang</h2>
+                        <p class="text-xs text-slate-500">Data Blok & Populasi Kelinci Pedaging</p>
+                    </div>
+                    <button onclick="toggleModal('modal-add-ternak')" class="w-9 h-9 neu-flat flex items-center justify-center text-teal-600 active:scale-95">
+                        <i class="fa-solid fa-plus text-sm"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="neu-flat p-4 rounded-2xl bg-white/70 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs font-black text-slate-800">Blok A - Indukan & Pejantan</span>
+                                <p class="text-xs text-teal-700 font-semibold mt-0.5">Kapasitas: 30 Ekor Aktif</p>
+                            </div>
+                            <span class="text-[9px] font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Produktif</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200/60 text-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Induk</span>
+                                <span class="text-xs font-bold text-slate-700">24 Ekor</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Pejantan</span>
+                                <span class="text-xs font-bold text-slate-700">6 Ekor</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Kesehatan</span>
+                                <span class="text-xs font-bold text-teal-600">Prima</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="neu-flat p-4 rounded-2xl bg-white/70 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs font-black text-slate-800">Blok B - Kelinci Pembesaran (Grower)</span>
+                                <p class="text-xs text-teal-700 font-semibold mt-0.5">Siap Panen Bulan Ini</p>
+                            </div>
+                            <span class="text-[9px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Fase Finishing</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200/60 text-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Jumlah</span>
+                                <span class="text-xs font-bold text-slate-700">120 Ekor</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Rata Bobot</span>
+                                <span class="text-xs font-bold text-slate-700">2.3 kg</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Est. Jadwal</span>
+                                <span class="text-xs font-bold text-amber-600">14 Okt 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. FITUR EDUKASI SCREEN (Full Module Library) -->
+            <section id="screen-edukasi" class="px-5 space-y-4 hidden">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-800">Pusat Edukasi RIPT</h2>
+                    <p class="text-xs text-slate-500">Panduan Teknis, Video Pelatihan & SOP Mitra</p>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="relative">
+                    <input type="text" placeholder="Cari topik (contoh: Pakan, Penyakit, Kandang)..." 
+                           class="w-full pl-10 pr-4 py-3 neu-pressed text-xs font-semibold text-slate-700 focus:outline-none rounded-2xl">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                </div>
+
+                <!-- Categories -->
+                <div class="flex space-x-2 no-scrollbar overflow-x-auto">
+                    <button class="px-3.5 py-1.5 bg-teal-600 text-white text-xs font-bold rounded-xl shadow-sm">Semua</button>
+                    <button class="px-3.5 py-1.5 neu-flat text-slate-600 text-xs font-medium rounded-xl">Nutrisi & Pakan</button>
+                    <button class="px-3.5 py-1.5 neu-flat text-slate-600 text-xs font-medium rounded-xl">Kesehatan</button>
+                    <button class="px-3.5 py-1.5 neu-flat text-slate-600 text-xs font-medium rounded-xl">Manajemen</button>
+                </div>
+
+                <!-- Articles List -->
+                <div class="space-y-3">
+                    <div onclick="openArticle('Teknik Budidaya Pakan Trichanthera')" class="neu-flat p-4 rounded-2xl bg-white/80 cursor-pointer active:scale-95 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[9px] font-bold bg-teal-100 text-teal-700 px-2.5 py-0.5 rounded-full">Modul #1 • Pakan</span>
+                            <span class="text-[10px] text-slate-400 font-medium">5 min read</span>
+                        </div>
+                        <h4 class="text-xs font-black text-slate-800">Budidaya & Pemanfaatan Daun Trichanthera</h4>
+                        <p class="text-[11px] text-slate-500 leading-snug">Pelajari cara menanam dan memberikan suplemen hijauan kaya protein untuk menghemat biaya pakan komersial hingga 30%.</p>
+                    </div>
+
+                    <div onclick="openArticle('Manajemen Biosekuriti Kandang')" class="neu-flat p-4 rounded-2xl bg-white/80 cursor-pointer active:scale-95 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[9px] font-bold bg-amber-100 text-amber-700 px-2.5 py-0.5 rounded-full">Modul #2 • Kesehatan</span>
+                            <span class="text-[10px] text-slate-400 font-medium">4 min read</span>
+                        </div>
+                        <h4 class="text-xs font-black text-slate-800">Pencegahan Penyakit Pernapasan & Pencernaan</h4>
+                        <p class="text-[11px] text-slate-500 leading-snug">Standar operasional kebersihan kandang tertutup (closed-house) dan protokol disinfeksi harian.</p>
+                    </div>
+
+                    <div onclick="openArticle('Standar Bobot Panen Ideal')" class="neu-flat p-4 rounded-2xl bg-white/80 cursor-pointer active:scale-95 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[9px] font-bold bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full">Modul #3 • Standar RIPT</span>
+                            <span class="text-[10px] text-slate-400 font-medium">3 min read</span>
+                        </div>
+                        <h4 class="text-xs font-black text-slate-800">Mencapai Grade A Karkas Melalui Manajemen Umur</h4>
+                        <p class="text-[11px] text-slate-500 leading-snug">Panduan menentukan waktu potong optimal agar bobot karkas memenuhi standar rumah potong hewan (RPH).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. JADWAL PANEN & SETOR (HB) SCREEN -->
+            <section id="screen-panen" class="px-5 space-y-4 hidden">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-800">Jadwal Setor Harvest Batch</h2>
+                    <p class="text-xs text-slate-500">Pengajuan Pengiriman ke Plant RIPT Bogor</p>
+                </div>
+
+                <div class="neu-flat p-4 rounded-3xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-black text-amber-800">PENGIRIMAN AKTIF: HB-2026-003</span>
+                        <span class="text-[10px] font-bold bg-amber-500 text-white px-2 py-0.5 rounded-full">Jadwal Besok</span>
+                    </div>
+                    <p class="text-xs text-slate-600">Jumlah: <strong class="text-slate-800">120 Ekor (Blok B)</strong></p>
+                    <p class="text-xs text-slate-600">Estimasi Bobot: <strong class="text-slate-800">276.0 kg</strong></p>
+                    <button onclick="alert('Detail pengiriman dikonfirmasi.')" class="w-full mt-2 py-2 bg-amber-500 text-white font-bold text-xs rounded-xl shadow-md">
+                        Konfirmasi Driver & Armada
+                    </button>
+                </div>
+            </section>
+
+            <!-- 5. KALKULATOR SMART FARM SCREEN -->
+            <section id="screen-kalkulator" class="px-5 space-y-4 hidden">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-800">Kalkulator Smart Farm</h2>
+                    <p class="text-xs text-slate-500">Hitung Kebutuhan Pakan & Proyeksi Hasil</p>
+                </div>
+
+                <div class="neu-flat p-4 rounded-3xl bg-white/80 space-y-3">
+                    <h3 class="text-xs font-black text-slate-800 uppercase">Jumlah Kelinci Ternak (Ekor)</h3>
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+                            <span>Populasi Aktif:</span>
+                            <span id="pop-val" class="text-purple-600 font-extrabold">150 Ekor</span>
+                        </div>
+                        <input type="range" min="50" max="500" value="150" class="w-full accent-purple-500 cursor-pointer" oninput="updateFarmerCalc(this.value)">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 pt-2">
+                        <div class="neu-pressed p-2.5 rounded-xl text-center">
+                            <span class="text-[10px] font-semibold text-slate-400 block">Kebutuhan Pakan/Hari</span>
+                            <span id="calc-pakan" class="text-sm font-extrabold text-teal-600">22.5 kg</span>
+                        </div>
+                        <div class="neu-pressed p-2.5 rounded-xl text-center">
+                            <span class="text-[10px] font-semibold text-slate-400 block">Est. Pakan Trichanthera</span>
+                            <span id="calc-trich" class="text-sm font-extrabold text-emerald-600">6.7 kg</span>
+                        </div>
+                        <div class="neu-pressed p-2.5 rounded-xl text-center">
+                            <span class="text-[10px] font-semibold text-slate-400 block">Est. Bobot Panen Total</span>
+                            <span id="calc-bobot" class="text-sm font-extrabold text-blue-600">345.0 kg</span>
+                        </div>
+                        <div class="neu-pressed p-2.5 rounded-xl text-center">
+                            <span class="text-[10px] font-semibold text-slate-400 block">Est. Pendapatan Kotor</span>
+                            <span id="calc-rev" class="text-sm font-extrabold text-amber-600">Rp 12.4 Juta</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. PROFIL SCREEN -->
+            <section id="screen-profil" class="px-5 space-y-4 hidden">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-800">Profil Mitra Peternak</h2>
+                    <p class="text-xs text-slate-500">Informasi Akun & Kontrak Binaan</p>
+                </div>
+                <div class="neu-flat p-4 rounded-3xl text-center space-y-2 bg-white/80">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250" class="w-20 h-20 rounded-2xl mx-auto border-2 border-emerald-500 shadow-md object-cover">
+                    <h3 class="font-extrabold text-base text-slate-800">Pak Budi (Heritage Farm)</h3>
+                    <p class="text-xs text-slate-500">Mitra Peternak Area Bogor - Sektor 3</p>
+                    <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded-full">STATUS: MITRA AKTIF RIPT</span>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FLOATING BOTTOM NAVIGATION BAR -->
+        <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[395px] z-50">
+            <div class="neu-flat bg-white/90 backdrop-blur-md rounded-3xl py-2 px-3 flex items-center justify-between border border-white/60 shadow-2xl">
+                
+                <button onclick="navigateTo('screen-beranda')" id="nav-beranda" class="flex flex-col items-center w-12 text-teal-600 transition-all">
+                    <i class="fa-solid fa-house text-lg"></i>
+                    <span class="text-[10px] font-bold mt-0.5">Beranda</span>
+                </button>
+
+                <button onclick="navigateTo('screen-kandang')" id="nav-kandang" class="flex flex-col items-center w-12 text-slate-400 hover:text-teal-600 transition-all">
+                    <i class="fa-solid fa-house-chimney text-lg"></i>
+                    <span class="text-[10px] font-medium mt-0.5">Kandang</span>
+                </button>
+
+                <!-- Center Elevated Education Button (GLOWING TEAL) -->
+                <button onclick="navigateTo('screen-edukasi')" id="nav-edukasi" class="relative -top-5 flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full card-teal flex items-center justify-center text-white glow-teal active:scale-90 transition-all">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <span class="text-[10px] font-extrabold text-teal-600 mt-0.5">Edukasi</span>
+                </button>
+
+                <button onclick="navigateTo('screen-panen')" id="nav-panen" class="flex flex-col items-center w-12 text-slate-400 hover:text-teal-600 transition-all">
+                    <i class="fa-solid fa-truck-ramp-box text-lg"></i>
+                    <span class="text-[10px] font-medium mt-0.5">Panen</span>
+                </button>
+
+                <button onclick="navigateTo('screen-profil')" id="nav-profil" class="flex flex-col items-center w-12 text-slate-400 hover:text-teal-600 transition-all">
+                    <i class="fa-solid fa-user text-lg"></i>
+                    <span class="text-[10px] font-medium mt-0.5">Profil</span>
+                </button>
+
+            </div>
+        </nav>
+
+        <!-- MODAL: ARTICLE READER -->
+        <div id="modal-article" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-5 hidden">
+            <div class="neu-flat bg-white rounded-3xl w-full max-w-sm p-6 space-y-3 relative max-h-[85vh] overflow-y-auto">
+                <button onclick="toggleModal('modal-article')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <span id="article-cat" class="text-[9px] font-bold bg-teal-100 text-teal-700 px-2 py-0.5 rounded-full">Edukasi RIPT</span>
+                <h3 id="article-title" class="text-base font-extrabold text-slate-800">Judul Modul</h3>
+                <div id="article-content" class="text-xs text-slate-600 leading-relaxed space-y-2 pt-2 border-t">
+                    Isi lengkap materi edukasi dan panduan praktis untuk peternak binaan...
+                </div>
+                <button onclick="toggleModal('modal-article')" class="w-full py-2 bg-teal-600 text-white text-xs font-bold rounded-xl mt-4">Tutup Materi</button>
+            </div>
+        </div>
+
+        <!-- MODAL: KONSULTASI DOKTER -->
+        <div id="modal-konsultasi" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-5 hidden">
+            <div class="neu-flat bg-white rounded-3xl w-full max-w-sm p-5 space-y-3 text-center">
+                <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto">
+                    <i class="fa-solid fa-user-doctor text-2xl"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-slate-800">Konsultasi Dokter Hewan RIPT</h3>
+                <p class="text-xs text-slate-500">Hubungi tim ahli kesehatan kelinci untuk konsultasi darurat atau pencegahan penyakit kandang.</p>
+                <div class="neu-pressed p-3 rounded-xl text-xs font-bold text-slate-700">
+                    <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i> WhatsApp Hotline: +62 812-RIPT-VET
+                </div>
+                <button onclick="toggleModal('modal-konsultasi')" class="w-full py-2 bg-blue-600 text-white text-xs font-bold rounded-xl">Kembali</button>
+            </div>
+        </div>
+
+        <!-- MODAL: NOTIFICATION -->
+        <div id="modal-notification" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-5 hidden">
+            <div class="neu-flat bg-white rounded-3xl w-full max-w-sm p-5 space-y-3">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-base font-extrabold text-slate-800">Notifikasi Peternak</h3>
+                    <button onclick="toggleModal('modal-notification')" class="text-slate-400 text-sm"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="space-y-2 text-xs">
+                    <div class="p-2.5 neu-pressed rounded-xl">
+                        <span class="font-bold text-slate-800 block">Jadwal Setor HB-003</span>
+                        <span class="text-[10px] text-slate-500">Armada jemput dijadwalkan besok pukul 08:00 WIB</span>
+                    </div>
+                    <div class="p-2.5 neu-pressed rounded-xl">
+                        <span class="font-bold text-slate-800 block">Modul Edukasi Baru Dirilis</span>
+                        <span class="text-[10px] text-slate-500">Baca panduan terbaru mengenai pakan fermentasi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Navigation Controller
+        function navigateTo(screenId) {
+            const screens = ['screen-beranda', 'screen-kandang', 'screen-edukasi', 'screen-panen', 'screen-kalkulator', 'screen-profil'];
+            screens.forEach(s => {
+                const el = document.getElementById(s);
+                if (el) el.classList.add('hidden');
+            });
+
+            const activeScreen = document.getElementById(screenId);
+            if (activeScreen) activeScreen.classList.remove('hidden');
+
+            const navIds = ['nav-beranda', 'nav-kandang', 'nav-panen', 'nav-profil'];
+            navIds.forEach(id => {
+                const navBtn = document.getElementById(id);
+                if (navBtn) {
+                    navBtn.classList.remove('text-teal-600');
+                    navBtn.classList.add('text-slate-400');
+                }
+            });
+
+            if (screenId === 'screen-beranda') setNavActive('nav-beranda');
+            else if (screenId === 'screen-kandang') setNavActive('nav-kandang');
+            else if (screenId === 'screen-panen') setNavActive('nav-panen');
+            else if (screenId === 'screen-profil') setNavActive('nav-profil');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setNavActive(navId) {
+            const btn = document.getElementById(navId);
+            if (btn) {
+                btn.classList.remove('text-slate-400');
+                btn.classList.add('text-teal-600');
+            }
+        }
+
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.toggle('hidden');
+        }
+
+        // Open Education Article Modal
+        function openArticle(title) {
+            document.getElementById('article-title').innerText = title;
+            document.getElementById('article-content').innerHTML = `
+                <p><strong>Ringkasan Eksekutif:</strong> Modul pelatihan resmi dari sistem RIPT (Rabbit Integrated Processing Technology) untuk memastikan standar kualitas daging pedaging dan kesejahteraan hewan.</p>
+                <p><strong>Poin Penting:</strong></p>
+                <ul class="list-disc pl-4 space-y-1">
+                    <li>Penerapan prinsip *Good Farming Practices* (GFP).</li>
+                    <li>Efisiensi biaya pakan mandiri berbasis hijauan lokal.</li>
+                    <li>Pencatatan kesehatan harian secara digital melalui aplikasi.</li>
+                </ul>
+                <p class="text-teal-600 font-semibold mt-2">Status: Modul telah dibaca dan diverifikasi.</p>
+            `;
+            toggleModal('modal-article');
+        }
+
+        // Farmer Calculator Logic
+        function updateFarmerCalc(pop) {
+            document.getElementById('pop-val').innerText = pop + " Ekor";
+            document.getElementById('calc-pakan').innerText = (pop * 0.15).toFixed(1) + " kg";
+            document.getElementById('calc-trich').innerText = (pop * 0.045).toFixed(1) + " kg";
+            document.getElementById('calc-bobot').innerText = (pop * 2.3).toFixed(1) + " kg";
+            
+            const rev = (pop * 2.3 * 36000) / 1000000; // Estimasi harga per kg
+            document.getElementById('calc-rev').innerText = "Rp " + rev.toFixed(1) + " Juta";
+        }
+
+        window.onload = function() {
+            navigateTo('screen-beranda');
+        };
+    </script>
+</body>
+</html>
